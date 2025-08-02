@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecom-New Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .main-container {
+            width: 100%;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .top-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: #d7d7d7;
+            border-radius: 15px;
+            box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+            -webkit-box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+            -moz-box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+        }
+
+        .top-section-child {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            width: 75%;
+        }
+
+        .left-info {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            flex: 1;
+            width: 50%;
+            /*background-color: red;*/
+            padding: 20px;
+            color: #5c5c5c;
+        }
+
+        .left-info h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #2a2a2a;
+            font-family: "Archivo Black", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .left-info h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .left-info ul {
+            padding-left: 20px;
+        }
+
+        .left-info li {
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .right-image {
+            /*background-color: blue;*/
+            width: 50%;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .right-image img {
+            width: 100%;
+            max-width: 550px;
+            /*max width 350px*/
+        }
+
+        .read-more {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .read-more a {
+            background: white;
+            color: black;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 10px;
+            box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+            -webkit-box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+            -moz-box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+            transition: 0.3s;
+        }
+
+        .read-more a:hover {
+            background-color: rgb(110, 110, 110);
+            color: white;
+        }
+
+        .product-carousel {
+            margin-top: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            overflow: hidden;
+            /*position: relative;*/
+            flex-wrap: nowrap;
+            /*width: 100%;*/
+            /*background-color: red;*/
+        }
+
+        .carousel-btn {
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 100%;
+            width: 50px;
+            height: 50px;
+            font-size: 35px;
+            text-align: center;
+            font-weight: bolder;
+            cursor: pointer;
+            z-index: 1;
+            flex-shrink: 0;
+        }
+
+        .carousel-items {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 10px 0;
+            width: 60%;
+        }
+
+        .carousel-items::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-thumb {
+            background: #d3d3d3;
+            padding: 15px;
+            border-radius: 10px;
+            width: 220px;
+            height: 220px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            flex-shrink: 0;
+            box-shadow: 2px 5px 7px 0px rgba(0, 0, 0, 0.38);
+            overflow: hidden;
+        }
+
+        .product-thumb img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .product-thumb span {
+            /*display: block;*/
+            /*margin-top: 10px;*/
+            font-weight: bold;
+            position: absolute;
+            bottom: 10px;
+            color: #202020;
+        }
+
+        .product-thumb.selected::after {
+            content: "SELECTED";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 8px;
+            height: 100%;
+            width: 100%;
+            font-size: 22px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ✅ Responsive styles */
+        @media (max-width: 768px) {
+            .top-section-child {
+                flex-direction: column;
+            }
+
+            .left-info,
+            .right-image {
+                width: 100%;
+            }
+
+            .left-info h1 {
+                font-size: 24px;
+            }
+
+            .left-info h2 {
+                font-size: 16px;
+            }
+
+            .left-info li {
+                font-size: 14px;
+            }
+
+            .right-image img {
+                max-width: 100%;
+            }
+
+            .carousel-items {
+                width: 100%;
+            }
+
+            .product-thumb {
+                width: 180px;
+                height: 180px;
+            }
+
+            .product-thumb img {
+                max-height: 80px;
+            }
+
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .left-info {
+                order: 2;
+            }
+
+            .right-image {
+                order: 18px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .left-info h1 {
+                font-size: 20px;
+            }
+
+            .left-info h2 {
+                font-size: 14px;
+            }
+
+            .product-thumb {
+                width: 150px;
+                height: 150px;
+            }
+
+            .product-thumb img {
+                max-height: 60px;
+            }
+
+            .read-more a {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="main-container">
+        <div class="top-section">
+            <div class="top-section-child">
+                <div class="left-info" id="product-info"></div>
+                <div class="right-image" id="product-image">
+                    <img id="main-image" src="" alt="Product Image">
+                </div>
+            </div>
+            <div class="read-more">
+                <a id="read-more-link" href="#">READ MORE</a>
+            </div>
+        </div>
+
+        <div class="product-carousel">
+            <button class="carousel-btn" onclick="prevProduct()">&#8249;</button>
+            <div class="carousel-items" id="carousel-items"></div>
+            <button class="carousel-btn" onclick="nextProduct()">&#8250;</button>
+        </div>
+    </div>
+
+    <script>
+        const products = [
+            {
+                name: "IRON POSTER FRAME",
+                specsTitle: "PRODUCT SPECIFICATIONS",
+                specs: [
+                    "Size: inches × 43 - 80 inches",
+                    "Material: Stainless Steel, Metal and Plastic"
+                ],
+                image: "https://github.com/its269/Assets/raw/refs/heads/main/banner%20image/new%20ecom%20product/IRON%20POSTER%20FRAME-1.webp",
+                link: "https://www.kelinph.com/promotional-display"
+            },
+            {
+                name: "DESKTOP LIGHTBOX",
+                specsTitle: "PRODUCT SPECIFICATIONS",
+                specs: [
+                    "Material: Acrylic",
+                    "Suitable Material for Lightbox : Backlit Film",
+                    "Size: A4",
+                    "Feature:  Rechargeable/ Wireless"
+                ],
+                image: "https://github.com/its269/Assets/raw/refs/heads/main/banner%20image/new%20ecom%20product/desktop%20lightbox.webp",
+                link: "https://www.kelinph.com/promotional-display"
+            },
+            {
+                name: "3D HOLOGRAM FAN",
+                specsTitle: "PRODUCT SPECIFICATIONS",
+                specs: [
+                    "Blade Diameter: 41 cm",
+                    "Resolution: 640 x 640 pixels",
+                    "Viewing Angle: 160 degrees",
+                    "Rated Power: 10-15 watts",
+                    "Number of LEDs: 224"
+                ],
+                image: "https://github.com/its269/Assets/raw/refs/heads/main/banner%20image/new%20ecom%20product/hologram-2.webp",
+                link: "https://www.kelinph.com/promotional-display"
+            },
+            {
+                name: "STANDING ROTATING LIGHTBOX",
+                specsTitle: "PRODUCT SPECIFICATIONS",
+                specs: [
+                    "Light Source: LED lights",
+                    "Layer: 4 layers",
+                    "Poster print: Backlit film",
+                    "Poster: 16pcs",
+                    "Installation: Floor standing"
+                ],
+                image: "https://github.com/its269/Assets/raw/refs/heads/main/banner%20image/new%20ecom%20product/rotating.webp",
+                link: "https://www.kelinph.com/promotional-display"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function renderProduct(index) {
+            const product = products[index];
+            const infoContainer = document.getElementById("product-info");
+            const image = document.getElementById("main-image");
+            const link = document.getElementById("read-more-link");
+
+            const formattedSpecs = product.specs.map(spec => {
+                const [label, value] = spec.split(":");
+                return `<li><span style="font-weight: bolder; font-size: 1.1em; color: #2a2a2a;">${label}:</span>${value}</li>`;
+            }).join("");
+
+            infoContainer.innerHTML = `
+            <h1>${product.name}</h1>
+            <h2>${product.specsTitle}</h2>
+            <ul>
+              ${formattedSpecs}
+            </ul>
+        `;
+
+            image.src = product.image;
+            link.href = product.link;
+            link.target = "_blank"; // <-- This makes the link open in a new tab
+
+            document.querySelectorAll('.product-thumb').forEach((el, i) => {
+                el.classList.toggle('selected', i === index);
+            });
+        }
+
+        function renderThumbnails() {
+            const container = document.getElementById("carousel-items");
+            container.innerHTML = products.map((product, i) => `
+            <div class="product-thumb${i === 0 ? ' selected' : ''}" onclick="selectProduct(${i})">
+                <img src="${product.image}" alt="${product.name}">
+                <span>${product.name}</span>
+            </div>
+        `).join("");
+        }
+
+        function selectProduct(index) {
+            currentIndex = index;
+            renderProduct(currentIndex);
+        }
+
+        function prevProduct() {
+            const container = document.getElementById("carousel-items");
+            container.scrollBy({ left: -270, behavior: 'smooth' });
+        }
+
+        function nextProduct() {
+            const container = document.getElementById("carousel-items");
+            container.scrollBy({ left: 270, behavior: 'smooth' });
+        }
+
+        // Initial render
+        renderThumbnails();
+        renderProduct(currentIndex);
+    </script>
+
+</body>
+
+</html>
